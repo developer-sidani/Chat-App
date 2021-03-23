@@ -1,10 +1,11 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
+import { auth } from "../firebase";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-
+import { useAuthState } from "react-firebase-hooks/auth";
 const HeaderContainer = styled.div`
   display: flex;
   position: fixed;
@@ -65,10 +66,15 @@ const HeaderRight = styled.div`
   }
 `;
 const Header = () => {
+  const [user] = useAuthState(auth);
   return (
     <HeaderContainer>
       <HeaderLeft>
-        <HeaderAvatar />
+        <HeaderAvatar
+          onClick={() => auth.signOut()}
+          src={user?.photoURL}
+          alt={user?.displayName}
+        />
         <AccessTimeIcon />
       </HeaderLeft>
 

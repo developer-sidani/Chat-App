@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { db } from "../firebase";
 import { useState } from "react";
 import firebase from "firebase";
-
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 const ChatInputContainer = styled.div`
   border-radius: 20px;
   > form {
@@ -25,6 +26,7 @@ const ChatInputContainer = styled.div`
   }
 `;
 function ChatInput({ channelName, channelId, chatRef }) {
+  const [user] = useAuthState(auth);
   const [input, setInput] = useState("");
 
   const sendMessage = (e) => {
@@ -37,13 +39,13 @@ function ChatInput({ channelName, channelId, chatRef }) {
     db.collection("rooms").doc(channelId).collection("messages").add({
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: "sidani",
-      userImage:
-        "https://yt3.ggpht.com/ytc/AAUvwnhivs8fYyGl5gVm-TySw6sn_waKwdI2IKTaUapgPw=s900-c-k-c0x00ffffff-no-rj",
+      user: user.displayName,
+      userImage: user.photoURL,
     });
-    chatRef.current.scrollIntoView({
+    chatRef?.current?.scrollIntoView({
       behavior: "smooth",
     });
+
     setInput("");
   };
   return (

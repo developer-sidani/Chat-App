@@ -13,9 +13,12 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import { db } from "../firebase";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 const Sidebar = () => {
-  const [channels, loading, error] = useCollection(db.collection("rooms"));
+  const [user] = useAuthState(auth);
+  const [channels] = useCollection(db.collection("rooms"));
   const SidebarContainer = styled.div`
     background-color: var(--slack-color);
     color: white;
@@ -75,7 +78,7 @@ const Sidebar = () => {
           <h2>Sidani's Server</h2>
           <h3>
             <FiberManualRecordIcon />
-            Ahmad Sidani
+            {user?.displayName}
           </h3>
         </SidebarInfo>
         <CreateIcon />
