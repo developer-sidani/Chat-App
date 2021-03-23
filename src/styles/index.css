@@ -19,3 +19,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.specialdiv{
+  padding: 50px;
+  color: var(--slack-color);
+  
+}
+.specialdiv >img{
+  border-radius: 70px;
+}

@@ -8,12 +8,9 @@ import { selectRoomId } from "../features/appSlice";
 import { db } from "../firebase";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { useRef, useEffect } from "react";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 const ChatContainer = styled.div`
-  > h1 {
-    display: flex;
-    padding: 20px;
-    color: var(--slack-color);
-  }
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
@@ -54,6 +51,7 @@ const ChatBottom = styled.div`
   padding-bottom: 200px;
 `;
 function Chat() {
+  const [user] = useAuthState(auth);
   const chatRef = useRef(null);
 
   const roomId = useSelector(selectRoomId);
@@ -113,7 +111,14 @@ function Chat() {
           />
         </>
       ) : (
-        <h1>Please select a channel </h1>
+        <div className="specialdiv">
+          <img src={user.photoURL} alt="" />
+          <h1>
+            Welcome {user?.displayName},<br /> to Sidani's Server{" "}
+          </h1>
+          <br />
+          <h3>Please Select a Channel or Create new one</h3>
+        </div>
       )}
     </ChatContainer>
   );
