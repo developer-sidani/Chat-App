@@ -6,6 +6,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
+
 const HeaderContainer = styled.div`
   display: flex;
   position: fixed;
@@ -17,6 +19,10 @@ const HeaderContainer = styled.div`
   color: white;
 `;
 const HeaderLeft = styled.div`
+  > h3 {
+    color: gray;
+    margin-left: 12px;
+  }
   flex: 0.3;
   display: flex;
   align-items: center;
@@ -66,6 +72,7 @@ const HeaderRight = styled.div`
   }
 `;
 const Header = () => {
+  const [isShown, setIsShown] = useState(false);
   const [user] = useAuthState(auth);
   return (
     <HeaderContainer>
@@ -74,7 +81,11 @@ const Header = () => {
           onClick={() => auth.signOut()}
           src={user?.photoURL}
           alt={user?.displayName}
-        />
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+        ></HeaderAvatar>
+
+        {isShown && <h3>Sign Out</h3>}
         <AccessTimeIcon />
       </HeaderLeft>
 
