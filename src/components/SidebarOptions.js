@@ -35,7 +35,7 @@ function SidebarOptions({ Icon, title, id, AddChannelOption }) {
     cursor: pointer;
     :hover {
       opacity: 0.9;
-      background-color: #340e36;
+      background-color: #3b444b;
     }
     > h3 {
       font-weight: 500;
