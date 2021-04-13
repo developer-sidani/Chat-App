@@ -16,10 +16,14 @@ import { db } from "../firebase";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useState } from "react";
 const Sidebar = () => {
+  const [showChannels, setShowChannels] = useState(true)
+  const [showitems, setShowitems] = useState(false)
   const [user] = useAuthState(auth);
   const [channels] = useCollection(db.collection("rooms"));
   const SidebarContainer = styled.div`
+  overflow:auto;
     background-color: var(--slack-color);
     color: white;
     flex: 0.3;
@@ -70,12 +74,14 @@ const Sidebar = () => {
       color: green;
     }
   `;
-
+  const ChatContainer = styled.div`
+    
+    `;
   return (
     <SidebarContainer>
       <SidebarHeader>
         <SidebarInfo>
-          <h2>Sidani's Server</h2>
+          <h2>Messaging App</h2>
           <h3>
             <FiberManualRecordIcon />
             {user?.displayName}
@@ -84,21 +90,29 @@ const Sidebar = () => {
         <CreateIcon />
       </SidebarHeader>
 
+      <SidebarOptions Icon={PeopleAltIcon} title="People & User Groups" />
       <SidebarOptions Icon={InsertCommentIcon} title="Threads" />
       <SidebarOptions Icon={InboxIcon} title="Mentions & Reactions" />
-      <SidebarOptions Icon={DraftsIcon} title="Saved Items" />
-      <SidebarOptions Icon={BookmarkBorderIcon} title="Channel Browser" />
-      <SidebarOptions Icon={PeopleAltIcon} title="People & User Groups" />
-      <SidebarOptions Icon={AppsIcon} title="Apps" />
-      <SidebarOptions Icon={FileCopyIcon} title="File Browser" />
-      <SidebarOptions Icon={ExpandLessIcon} title="Show Less" />
+      {showitems && <>
+        <SidebarOptions Icon={DraftsIcon} title="Saved Items" />
+        <SidebarOptions Icon={BookmarkBorderIcon} title="Channel Browser" />
+        <SidebarOptions Icon={AppsIcon} title="Apps" />
+        <SidebarOptions Icon={FileCopyIcon} title="File Browser" />
+      </>
+      }
+      <SidebarOptions Icon={showitems ? ExpandLessIcon : ExpandMoreIcon} title={showitems ? "Show Less" : "Show More"} myit={showitems} setmyit={setShowitems} />
       <hr />
-      <SidebarOptions Icon={ExpandMoreIcon} title="Channels" />
+      <SidebarOptions Icon={showChannels ? ExpandLessIcon : ExpandMoreIcon} title="Chat" mystate={showChannels} setmystate={setShowChannels} />
       <hr />
-      <SidebarOptions Icon={AddIcon} title="Add Channel" AddChannelOption />
-      {channels?.docs.map((doc) => (
-        <SidebarOptions title={doc.data().name} id={doc.id} key={doc.id} />
-      ))}
+      <ChatContainer>
+        {showChannels &&
+          <SidebarOptions Icon={AddIcon} title="Add Channel" AddChannelOption />}
+
+        {showChannels && channels?.docs.map((doc) => (
+          <SidebarOptions title={doc.data().name} id={doc.id} key={doc.id} />
+        ))}
+      </ChatContainer>
+
     </SidebarContainer>
   );
 };

@@ -60,11 +60,11 @@ function Chat() {
   );
   const [roomMessages, loading] = useCollection(
     roomId &&
-      db
-        .collection("rooms")
-        .doc(roomId)
-        .collection("messages")
-        .orderBy("timestamp", "asc")
+    db
+      .collection("rooms")
+      .doc(roomId)
+      .collection("messages")
+      .orderBy("timestamp", "asc")
   );
   useEffect(() => {
     chatRef?.current?.scrollIntoView({
@@ -114,7 +114,7 @@ function Chat() {
         <div className="specialdiv">
           <img src={user.photoURL} alt="" />
           <h1>
-            Welcome {user?.displayName},<br /> to Sidani's Server{" "}
+            Welcome {user?.displayName},<br /> to Chat App{" "}
           </h1>
           <br />
           <h3>Please Select a Channel or Create new one</h3>
