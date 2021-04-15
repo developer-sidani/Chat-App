@@ -35,18 +35,21 @@ function ChatInput({ channelName, channelId, chatRef }) {
     if (!channelId) {
       return false;
     }
+    if (input !== "") {
+      db.collection("rooms").doc(channelId).collection("messages").add({
+        message: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        user: user.displayName,
+        userImage: user.photoURL,
+      });
+      chatRef?.current?.scrollIntoView({
+        behavior: "smooth",
+      });
 
-    db.collection("rooms").doc(channelId).collection("messages").add({
-      message: input,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: user.displayName,
-      userImage: user.photoURL,
-    });
-    chatRef?.current?.scrollIntoView({
-      behavior: "smooth",
-    });
+      setInput("");
+    }
 
-    setInput("");
+
   };
   return (
     <ChatInputContainer>
