@@ -15,3 +15,4 @@ const RoomsSchema = mongoose.Schema({
 });
 
 export default mongoose.model("RoomDetails", RoomsSchema);
+export default mongoose.model("MessageDetails", MessageSchema);

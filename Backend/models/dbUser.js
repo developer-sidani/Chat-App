@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
   username: String,
   email: String,
   imageUrl: String,
-  fireBaseId: String,
+  fireBaseId: Number,
   friendsList: Array,
   groupList: Array,
 });
