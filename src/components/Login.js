@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import slackimage from "./slack.jpg";
+import mylogo from "./logo.png";
 import { auth, provider } from "../firebase";
 const Login = () => {
   const signIn = (e) => {
@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <LoginContainer>
       <LoginInnerContainer>
-        <img src={slackimage} alt="" />
+        <img src={mylogo} alt="" />
         <h1>Sign in to Sidani's Server</h1>
         <p>Sidani.slack.com</p>
         <Button onClick={signIn}>Sign in with Google</Button>

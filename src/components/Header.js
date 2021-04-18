@@ -91,7 +91,7 @@ const Header = () => {
 
       <HeaderSearch>
         <SearchIcon />
-        <input type="text" placeholder="Search Sidani's Server" />
+        <input type="text" placeholder="Search Messaging App" />
       </HeaderSearch>
 
       <HeaderRight>

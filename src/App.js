@@ -5,11 +5,9 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import { auth } from "./firebase";
 import Login from "./components/Login";
-import slackimage from "./components/slack.png";
+import logo from "./components/logo.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Spinner from "react-spinkit";
-import Friends from './components/Friends'
-import Groups from './components/Groups'
 import Error from './components/Error'
 const AppBody = styled.div`
   display: flex;
@@ -40,7 +38,7 @@ function App() {
     return (
       <AppLoading>
         <AppLoadingContents>
-          <img src={slackimage} alt="" />
+          <img src={logo} alt="" />
           <Spinner name="ball-spin-fade-loader" color="black" fadeIn="none" />
         </AppLoadingContents>
       </AppLoading>
@@ -60,12 +58,6 @@ function App() {
                   <Sidebar />
                   <Chat />
                 </AppBody>
-              </Route>
-              <Route path="/friends">
-                <Friends />
-              </Route>
-              <Route path="/groups">
-                <Groups />
               </Route>
               <Route path="*">
                 <Error />

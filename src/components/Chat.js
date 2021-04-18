@@ -84,7 +84,7 @@ function Chat() {
             </ChatHeaderLeft>
             <ChatHeaderRight>
               <p>
-                <InfoOutlinedIcon /> Details
+                <InfoOutlinedIcon />Details
               </p>
             </ChatHeaderRight>
           </ChatHeader>
